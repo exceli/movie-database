@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"baseUrl": "./src",
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"target": "ESNext",
+		"types": ["vite/client"],
+		"paths": {
+			"app/*": ["app/*"],
+			"entities/*": ["entities/*"],
+			"features/*": ["features/*"],
+			"pages/*": ["pages/*"],
+			"shared/*": ["shared/*"],
+			"widgets/*": ["widgets/*"]
+		},
+		"esModuleInterop": true
+	},
+	"include": ["src/**/*"]
+}
