@@ -1,48 +1,64 @@
-import { Grid } from '@mui/material'
-import { searchMovies } from 'entities/movie/api/movieApi'
-import { FC, useState } from 'react'
+import { Box, Grid } from '@mui/material'
+import { RootState } from 'app/store'
+import { useSearchMovies } from 'entities/movie/hooks/useSearchMovie'
+import { FC, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useDebounce } from 'shared/hooks/useDebounce'
 import { SearchButton } from 'shared/ui/searchButton'
 import { SearchInput } from 'shared/ui/searchInput'
+import { ResultsDropdown } from './resultsDropdown'
 
-interface SearchMovieProps {
-	onSearch: (query: string) => void
-}
+export const SearchMovie: FC = () => {
+	const [query, setQuery] = useState<string>('')
+	const [open, setOpen] = useState<boolean>(false)
+	const movies = useSelector((state: RootState) => state.search.movies)
+	const { searchMovies, isLoading, error } = useSearchMovies()
 
-export const SearchMovie: FC<SearchMovieProps> = () => {
-	const [query, setQuery] = useState('')
+	const debouncedQuery = useDebounce(query, 500)
 
-	const handleSearch = async () => {
-		try {
-			const data = await searchMovies(query)
-			console.log(data)
-		} catch (error) {
-			console.error('Error searching movies:', error)
+	useEffect(() => {
+		if (debouncedQuery) {
+			searchMovies(debouncedQuery, 1, 4)
+			setOpen(true)
+		} else {
+			setOpen(false)
 		}
-	}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [debouncedQuery])
 
-	const handleKeyPress = (event: React.KeyboardEvent) => {
-		if (event.key === 'Enter') {
-			handleSearch()
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(e.target.value)
+		if (e.target.value === '') {
+			setOpen(false)
 		}
 	}
 
 	return (
 		<Grid container spacing={2} justifyContent="center">
 			<Grid item xs={10} md={8}>
-				<SearchInput
-					value={query}
-					onChange={e => setQuery(e.target.value)}
-					label="Search Movie"
-					type="search"
-					onKeyPress={handleKeyPress}
-					endAdornment={
-						<SearchButton
-							onClick={handleSearch}
-							color="primary"
-							aria-label="search"
+				<Box position="relative">
+					<SearchInput
+						value={query}
+						onChange={handleInputChange}
+						label="Search Movie"
+						type="search"
+						endAdornment={
+							<SearchButton
+								color="primary"
+								aria-label="search"
+								disabled={isLoading}
+							/>
+						}
+					/>
+					{open && (
+						<ResultsDropdown
+							movies={movies}
+							isLoading={isLoading}
+							error={error}
+							onItemClick={movieId => console.log(movieId)}
 						/>
-					}
-				/>
+					)}
+				</Box>
 			</Grid>
 		</Grid>
 	)
