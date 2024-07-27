@@ -1,5 +1,6 @@
 import {
 	Avatar,
+	Box,
 	List,
 	ListItem,
 	ListItemAvatar,
@@ -11,12 +12,17 @@ import {
 import React from 'react'
 import { Movie } from 'shared/types'
 import { Loading } from 'shared/ui/loading'
+import { Rating } from 'shared/ui/rating'
 
 interface ResultsDropdownProps {
 	movies: Array<Movie>
 	isLoading: boolean
 	error: string | null
 	onItemClick: (movieId: string) => void
+}
+
+const getOptimizedImageUrl = (url: string, width: number, quality: number) => {
+	return `${url}?tr=w-${width},q-${quality}`
 }
 
 export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
@@ -37,9 +43,21 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 							onClick={() => onItemClick(movie.id)}
 						>
 							<ListItemAvatar>
-								<Avatar src={movie.posterUrl} alt={movie.name} />
+								<Avatar
+									src={getOptimizedImageUrl(movie?.backdrop?.url, 56, 80)}
+									alt={movie?.name}
+									sx={{ width: 56, height: 56, mr: 2 }}
+								/>
 							</ListItemAvatar>
-							<ListItemText primary={movie.name} secondary={movie.year} />
+							<ListItemText
+								primary={movie.name}
+								secondary={
+									<Box component="span">
+										<Typography component="span">{movie.year}</Typography>
+										<Rating rating={movie.rating.imdb} />
+									</Box>
+								}
+							/>
 						</ListItem>
 					))}
 				</List>

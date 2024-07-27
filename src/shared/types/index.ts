@@ -4,4 +4,10 @@ export interface Movie {
     year: number
     posterUrl: string
     description: string
+    backdrop?: {
+        url: string
+    }
+    rating: {
+        imdb: number
+    }
 }
