@@ -5,7 +5,7 @@
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"target": "ESNext",
-		"types": ["vite/client"],
+		"types": ["vite/client", "node"],
 		"paths": {
 			"app/*": ["app/*"],
 			"entities/*": ["entities/*"],

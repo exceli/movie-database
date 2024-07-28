@@ -1,23 +1,20 @@
-import { Grid, Typography } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { SearchMovie } from 'features/movieSearch/ui/searchMovie'
-import { FC } from 'react'
 
-export const HomePage: FC = () => {
-	const handleSearch = (query: string) => {
-		console.log(query)
-	}
-
+export const HomePage = () => {
 	return (
-		<Grid container spacing={2} justifyContent="center">
-			<Grid item xs={12}>
-				<Typography variant="h2" align="center" gutterBottom>
-					Welcome to Movie Database App
-				</Typography>
+		<Box
+			display="flex"
+			justifyContent="center"
+			alignItems="center"
+			minHeight="90vh"
+		>
+			<Grid container spacing={2} justifyContent="center">
+				<Grid item xs={10} md={8}>
+					<SearchMovie />
+				</Grid>
 			</Grid>
-			<Grid item xs={10} md={8}>
-				<SearchMovie onSearch={handleSearch} />
-			</Grid>
-		</Grid>
+		</Box>
 	)
 }
 

@@ -1,5 +1,6 @@
 import { App } from 'app/app'
 import { createRoot } from 'react-dom/client'
+import 'shared/config/firebase'
 
 const container = document.querySelector('#root') as HTMLElement
 const root = createRoot(container)
