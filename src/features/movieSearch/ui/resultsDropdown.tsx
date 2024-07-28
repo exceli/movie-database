@@ -1,6 +1,7 @@
 import {
 	Avatar,
 	Box,
+	Button,
 	List,
 	ListItem,
 	ListItemAvatar,
@@ -8,7 +9,6 @@ import {
 	Paper,
 	Typography,
 } from '@mui/material'
-
 import React from 'react'
 import { Movie } from 'shared/types'
 import { Loading } from 'shared/ui/loading'
@@ -18,7 +18,8 @@ interface ResultsDropdownProps {
 	movies: Array<Movie>
 	isLoading: boolean
 	error: string | null
-	onItemClick: (movieId: string) => void
+	onItemClick: (movie: Movie) => void
+	userId: string
 }
 
 const getOptimizedImageUrl = (url: string, width: number, quality: number) => {
@@ -31,17 +32,17 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 	error,
 	onItemClick,
 }) => {
+	const handleAddToPlaylist = (movie: Movie) => {
+		onItemClick(movie)
+	}
+
 	return (
 		<Paper elevation={3}>
 			{isLoading && <Loading />}
 			{!isLoading && movies.length > 0 && (
 				<List>
 					{movies.map(movie => (
-						<ListItem
-							button
-							key={movie.id}
-							onClick={() => onItemClick(movie.id)}
-						>
+						<ListItem key={movie.id} button>
 							<ListItemAvatar>
 								<Avatar
 									src={getOptimizedImageUrl(movie?.backdrop?.url, 56, 80)}
@@ -58,6 +59,13 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 									</Box>
 								}
 							/>
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={() => handleAddToPlaylist(movie)}
+							>
+								Add to Playlist
+							</Button>
 						</ListItem>
 					))}
 				</List>
