@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import { SearchMovie } from 'features/movieSearch/ui/searchMovie'
+import { colors } from 'shared/ui/colors/colors'
 
 export const HomePage = () => {
 	return (
@@ -7,7 +8,8 @@ export const HomePage = () => {
 			display="flex"
 			justifyContent="center"
 			alignItems="center"
-			minHeight="90vh"
+			minHeight={'calc(100vh - 64px)'}
+			sx={{ backgroundColor: colors.pageBackground }}
 		>
 			<Grid container spacing={2} justifyContent="center">
 				<Grid item xs={10} md={8}>

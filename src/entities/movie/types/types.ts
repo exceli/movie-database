@@ -7,6 +7,10 @@ export interface Movie {
     backdrop?: {
         url: string
     }
+    isPlaylist?: boolean
+    poster?: {
+        previewUrl: string
+    }
     rating: {
         imdb: number
     }

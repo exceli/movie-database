@@ -1,6 +1,15 @@
-import { Card, CardContent, Grid, Typography } from '@mui/material'
+import StarIcon from '@mui/icons-material/Star'
+import {
+	Avatar,
+	Box,
+	List,
+	ListItem,
+	ListItemAvatar,
+	ListItemText,
+	Typography,
+} from '@mui/material'
+import { Movie } from 'entities/movie/types/types'
 import { FC } from 'react'
-import { Movie } from 'shared/types'
 
 interface MovieListProps {
 	movies: Movie[]
@@ -8,21 +17,38 @@ interface MovieListProps {
 
 export const MovieList: FC<MovieListProps> = ({ movies }) => {
 	return (
-		<>
+		<List>
 			{movies.map(movie => (
-				<Grid item xs={12} sm={6} md={4} key={movie.id}>
-					<Card>
-						<CardContent>
-							<Typography variant="h6" component="h2">
-								{movie.name}
-							</Typography>
-							<Typography variant="body2" color="textSecondary">
-								{movie.description}
-							</Typography>
-						</CardContent>
-					</Card>
-				</Grid>
+				<ListItem key={movie.id} alignItems="flex-start">
+					<ListItemAvatar>
+						<Avatar
+							variant="square"
+							src={movie.poster.previewUrl}
+							alt={movie.name}
+							sx={{ width: 56, height: 56 }}
+						/>
+					</ListItemAvatar>
+					<ListItemText
+						primary={
+							<Box
+								display="flex"
+								alignItems="center"
+								justifyContent="space-between"
+							>
+								<Typography variant="h6" component="h2">
+									{movie.name}
+								</Typography>
+								<Box display="flex" alignItems="center">
+									<StarIcon style={{ color: 'gold' }} />
+									<Typography variant="body2" color="textSecondary">
+										{movie.rating.imdb}
+									</Typography>
+								</Box>
+							</Box>
+						}
+					/>
+				</ListItem>
 			))}
-		</>
+		</List>
 	)
 }

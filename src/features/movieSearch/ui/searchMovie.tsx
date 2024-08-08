@@ -3,10 +3,8 @@ import { RootState } from 'app/store'
 import { useSearchMovies } from 'entities/movie/hooks/useSearchMovie'
 import { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { addToPlaylist } from 'shared/api/firebase'
-import { useAuth } from 'shared/hooks/useAuth'
 import { useDebounce } from 'shared/hooks/useDebounce'
-import { Movie } from 'shared/types'
+import { colors } from 'shared/ui/colors/colors'
 import { SearchButton } from 'shared/ui/searchButton'
 import { SearchInput } from 'shared/ui/searchInput'
 import { ResultsDropdown } from './resultsDropdown'
@@ -16,7 +14,6 @@ export const SearchMovie: FC = () => {
 	const [open, setOpen] = useState<boolean>(false)
 	const movies = useSelector((state: RootState) => state.search.movies)
 	const { searchMovies, isLoading, error } = useSearchMovies()
-	const user = useAuth()
 
 	const debouncedQuery = useDebounce(query, 500)
 
@@ -37,17 +34,6 @@ export const SearchMovie: FC = () => {
 		}
 	}
 
-	const handleAddToPlaylist = async (movie: Movie) => {
-		if (user && user.id) {
-			try {
-				await addToPlaylist(user.id, movie)
-				alert(`Фильм ${movie.name} успешно добавлен`)
-			} catch (error) {
-				throw new Error(error)
-			}
-		}
-	}
-
 	return (
 		<Grid container spacing={2} justifyContent="center">
 			<Grid item xs={10} md={8}>
@@ -57,6 +43,17 @@ export const SearchMovie: FC = () => {
 						onChange={handleInputChange}
 						label="Search Movie"
 						type="search"
+						sx={{
+							color: colors.textPrimary,
+							backgroundColor: colors.inputBackground,
+							borderRadius: '10px',
+							'& .MuiInputBase-input::placeholder': {
+								color: colors.textPrimary,
+							},
+							'& .MuiInputLabel-root': {
+								color: colors.textPrimary,
+							},
+						}}
 						endAdornment={
 							<SearchButton
 								color="primary"
@@ -70,8 +67,6 @@ export const SearchMovie: FC = () => {
 							movies={movies}
 							isLoading={isLoading}
 							error={error}
-							onItemClick={handleAddToPlaylist}
-							userId={user?.id}
 						/>
 					)}
 				</Box>

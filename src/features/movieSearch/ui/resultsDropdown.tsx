@@ -1,39 +1,48 @@
-import {
-	Avatar,
-	Box,
-	Button,
-	List,
-	ListItem,
-	ListItemAvatar,
-	ListItemText,
-	Paper,
-	Typography,
-} from '@mui/material'
-import React from 'react'
-import { Movie } from 'shared/types'
+import { List, Paper, Typography } from '@mui/material'
+import { Movie } from 'entities/movie/types/types'
+import { MovieItem } from 'entities/movie/ui/MovieItem'
+import React, { useState } from 'react'
+import { addToPlaylist } from 'shared/api/firebase'
+import { useAuth } from 'shared/hooks/useAuth'
+import { useRequest } from 'shared/hooks/useRequest'
 import { Loading } from 'shared/ui/loading'
-import { Rating } from 'shared/ui/rating'
 
 interface ResultsDropdownProps {
 	movies: Array<Movie>
 	isLoading: boolean
 	error: string | null
-	onItemClick: (movie: Movie) => void
-	userId: string
-}
-
-const getOptimizedImageUrl = (url: string, width: number, quality: number) => {
-	return `${url}?tr=w-${width},q-${quality}`
 }
 
 export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 	movies,
 	isLoading,
 	error,
-	onItemClick,
 }) => {
-	const handleAddToPlaylist = (movie: Movie) => {
-		onItemClick(movie)
+	const user = useAuth()
+	const [addingMovieId, setAddingMovieId] = useState<string | null>(null)
+
+	const {
+		executeRequest: addMovieToPlaylist,
+		isLoading: isAddMovieLoading,
+		error: addMovieError,
+		data: addedMovie,
+	} = useRequest(async (userId: string, movie: Movie) => {
+		await addToPlaylist(userId, movie)
+		return movie
+	})
+
+	const handleAddToPlaylist = async (movie: Movie) => {
+		if (user && user.id) {
+			setAddingMovieId(movie.id)
+			try {
+				await addMovieToPlaylist(user.id, movie)
+				alert(`Фильм ${movie.name} успешно добавлен`)
+			} catch (error) {
+				console.error(error)
+			} finally {
+				setAddingMovieId(null)
+			}
+		}
 	}
 
 	return (
@@ -42,31 +51,15 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 			{!isLoading && movies.length > 0 && (
 				<List>
 					{movies.map(movie => (
-						<ListItem key={movie.id} button>
-							<ListItemAvatar>
-								<Avatar
-									src={getOptimizedImageUrl(movie?.backdrop?.url, 56, 80)}
-									alt={movie?.name}
-									sx={{ width: 56, height: 56, mr: 2 }}
-								/>
-							</ListItemAvatar>
-							<ListItemText
-								primary={movie.name}
-								secondary={
-									<Box component="span">
-										<Typography component="span">{movie.year}</Typography>
-										<Rating rating={movie.rating.imdb} />
-									</Box>
-								}
-							/>
-							<Button
-								variant="contained"
-								color="primary"
-								onClick={() => handleAddToPlaylist(movie)}
-							>
-								Add to Playlist
-							</Button>
-						</ListItem>
+						<MovieItem
+							key={movie.id}
+							movie={movie}
+							isLoading={isAddMovieLoading}
+							error={addMovieError}
+							addedMovie={addedMovie}
+							onItemClick={handleAddToPlaylist}
+							addingMovieId={addingMovieId}
+						/>
 					))}
 				</List>
 			)}

@@ -1,4 +1,5 @@
 import { App } from 'app/app'
+import 'normalize.css'
 import { createRoot } from 'react-dom/client'
 import 'shared/config/firebase'
 

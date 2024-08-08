@@ -1,6 +1,6 @@
+import { Movie } from 'entities/movie'
 import { addDoc, collection, getDocs } from "firebase/firestore"
 import { db } from 'shared/config/firebase'
-import { Movie } from 'shared/types'
 
 export const addToPlaylist = async (userId: string, movie: Movie) => {
     try {
@@ -8,13 +8,7 @@ export const addToPlaylist = async (userId: string, movie: Movie) => {
             throw new Error('Invalid data')
         }
 
-        const docRef = await addDoc(collection(db, 'playlists', userId, 'movies'), {
-            id: movie.id,
-            name: movie.name,
-            year: movie.year,
-            rating: movie.rating.imdb,
-            backdrop: movie.backdrop.url
-        })
+        const docRef = await addDoc(collection(db, 'playlists', userId, 'movies'), movie)
 
         console.log('Document written with ID: ', docRef.id)
     } catch (e) {

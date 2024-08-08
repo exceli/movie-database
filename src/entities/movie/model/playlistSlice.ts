@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getPlaylistMovies as fetchPlaylistMoviesFromAPI } from 'shared/api/firebase'
-import { Movie } from 'shared/types'
+import { Movie } from '../types/types'
 
 interface PlaylistState {
     movies: Movie[]
