@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import { SearchMovie } from 'features/movieSearch/ui/searchMovie'
+import { SearchMovie } from 'features/search/ui/searchMovie'
 import { colors } from 'shared/ui/colors/colors'
 
 export const HomePage = () => {

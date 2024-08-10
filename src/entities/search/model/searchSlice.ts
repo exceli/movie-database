@@ -1,6 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Movie } from 'shared/types/types'
 
-const initialState = {
+export interface SearchState {
+    movies: Movie[] | null
+}
+
+const initialState: SearchState = {
     movies: null
 }
 
@@ -8,11 +13,11 @@ const searchSlice = createSlice({
     name: 'search',
     initialState,
     reducers: {
-        setMovies: (state, action: PayloadAction) => {
+        setSearchMovies: (state, action: PayloadAction<Movie[]>) => {
             state.movies = action.payload
         },
     },
 })
 
-export const { setMovies } = searchSlice.actions
+export const { setSearchMovies } = searchSlice.actions
 export default searchSlice.reducer

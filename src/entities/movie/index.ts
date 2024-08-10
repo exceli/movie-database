@@ -1,1 +1,1 @@
-export { Movie } from './types/types'
+export { MovieItem } from './ui/MovieItem'

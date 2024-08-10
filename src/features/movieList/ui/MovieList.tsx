@@ -8,8 +8,8 @@ import {
 	ListItemText,
 	Typography,
 } from '@mui/material'
-import { Movie } from 'entities/movie/types/types'
 import { FC } from 'react'
+import { Movie } from 'shared/types/types'
 
 interface MovieListProps {
 	movies: Movie[]

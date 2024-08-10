@@ -1,10 +1,10 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
 import { AppDispatch, RootState } from 'app/store'
 import { fetchPlaylistMovies } from 'entities/movie/model/playlistSlice'
+import { useAuth } from 'entities/user/hook/useAuth'
 import { MovieList } from 'features/movieList/ui/MovieList'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useAuth } from 'shared/hooks/useAuth'
 import { colors } from 'shared/ui/colors/colors'
 import { Loading } from 'shared/ui/loading'
 

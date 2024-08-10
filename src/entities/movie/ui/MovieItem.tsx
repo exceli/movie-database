@@ -2,15 +2,17 @@ import CheckIcon from '@mui/icons-material/Check'
 import {
 	Avatar,
 	Box,
-	CircularProgress,
 	ListItem,
 	ListItemAvatar,
 	ListItemText,
 	Typography,
 } from '@mui/material'
-import { Movie } from 'entities/movie/types/types'
+import { useAuth } from 'entities/user/hook/useAuth'
+
 import React from 'react'
+import { Movie } from 'shared/types/types'
 import { Button } from 'shared/ui/button'
+import { Loading } from 'shared/ui/loading'
 import { Rating } from 'shared/ui/rating'
 
 interface MovieItemProps {
@@ -30,12 +32,14 @@ export const MovieItem: React.FC<MovieItemProps> = ({
 	movie,
 	isLoading,
 	error,
-	addedMovie,
+	// addedMovie,
 	onItemClick,
 	addingMovieId,
 }) => {
+	const user = useAuth()
 	const isAddingCurrentMovie = addingMovieId === movie.id
-	const isAdded = addedMovie?.id === movie.id
+
+	console.log(user)
 
 	return (
 		<ListItem key={movie.id}>
@@ -55,29 +59,21 @@ export const MovieItem: React.FC<MovieItemProps> = ({
 					</Box>
 				}
 			/>
-			{isAddingCurrentMovie ? (
-				isLoading ? (
-					<CircularProgress size={24} />
-				) : isAdded ? (
+			{user.id &&
+				(movie.isPlaylist ? (
 					<CheckIcon color="success" />
+				) : isAddingCurrentMovie ? (
+					<Loading />
 				) : (
 					<Button
 						variant="contained"
 						color="primary"
 						onClick={() => onItemClick(movie)}
 					>
-						Try Again
+						+
 					</Button>
-				)
-			) : (
-				<Button
-					variant="contained"
-					color="primary"
-					onClick={() => onItemClick(movie)}
-				>
-					Add to Playlist
-				</Button>
-			)}
+				))}
+
 			{error && !isAddingCurrentMovie && (
 				<Typography color="error" mt={2}>
 					{error}

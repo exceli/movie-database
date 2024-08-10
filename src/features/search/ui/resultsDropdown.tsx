@@ -1,14 +1,16 @@
 import { List, Paper, Typography } from '@mui/material'
-import { Movie } from 'entities/movie/types/types'
 import { MovieItem } from 'entities/movie/ui/MovieItem'
+import { setSearchMovies } from 'entities/search/model/searchSlice'
+import { useAuth } from 'entities/user/hook/useAuth'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { addToPlaylist } from 'shared/api/firebase'
-import { useAuth } from 'shared/hooks/useAuth'
 import { useRequest } from 'shared/hooks/useRequest'
+import { Movie } from 'shared/types/types'
 import { Loading } from 'shared/ui/loading'
 
 interface ResultsDropdownProps {
-	movies: Array<Movie>
+	movies: Movie[]
 	isLoading: boolean
 	error: string | null
 }
@@ -18,6 +20,7 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 	isLoading,
 	error,
 }) => {
+	const dispatch = useDispatch()
 	const user = useAuth()
 	const [addingMovieId, setAddingMovieId] = useState<string | null>(null)
 
@@ -35,8 +38,15 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 		if (user && user.id) {
 			setAddingMovieId(movie.id)
 			try {
-				await addMovieToPlaylist(user.id, movie)
-				alert(`Фильм ${movie.name} успешно добавлен`)
+				const updatedMovie = await addMovieToPlaylist(user.id, movie)
+
+				dispatch(
+					setSearchMovies(
+						movies.map(m =>
+							m.id === updatedMovie.id ? { ...m, isPlaylist: true } : m
+						)
+					)
+				)
 			} catch (error) {
 				console.error(error)
 			} finally {
