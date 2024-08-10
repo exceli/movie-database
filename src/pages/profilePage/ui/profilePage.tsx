@@ -1,17 +1,18 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
 import { AppDispatch, RootState } from 'app/store'
-import { fetchPlaylistMovies } from 'entities/movie/model/playlistSlice'
+import { fetchPlaylistMovies } from 'entities/playlist/model/playlistSlice'
 import { useAuth } from 'entities/user/hook/useAuth'
 import { MovieList } from 'features/movieList/ui/MovieList'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { colors } from 'shared/ui/colors/colors'
 import { Loading } from 'shared/ui/loading'
 
 export const ProfilePage: FC = () => {
 	const dispatch = useDispatch<AppDispatch>()
 	const user = useAuth()
-	const { movies, status } = useSelector((state: RootState) => state.playlist)
+	const { movies, status, error } = useSelector(
+		(state: RootState) => state.playlist
+	)
 
 	useEffect(() => {
 		if (user && user.id) {
@@ -19,18 +20,19 @@ export const ProfilePage: FC = () => {
 		}
 	}, [user, dispatch])
 
+	const handleDeleteMovie = (movieId: string) => {
+		console.log(movieId)
+	}
+
 	return (
 		<Box
 			sx={{
-				backgroundColor: colors.pageBackground,
 				minHeight: 'calc(100vh - 64px)',
-				color: colors.textPrimary,
 			}}
 		>
 			<Container
-				maxWidth="md"
+				maxWidth="lg"
 				sx={{
-					backgroundColor: colors.backgroundLight,
 					padding: 4,
 					borderRadius: 2,
 				}}
@@ -40,10 +42,16 @@ export const ProfilePage: FC = () => {
 						{user.email}'s Profile
 					</Typography>
 					<Typography variant="h6" component="h2" gutterBottom>
-						Your Added Movies
+						Ваши добавленные фильмы
 					</Typography>
 					<Grid container spacing={2}>
-						{status === 'loading' ? <Loading /> : <MovieList movies={movies} />}
+						{status === 'loading' ? (
+							<Loading />
+						) : status === 'failed' ? (
+							<Typography color="error">{error}</Typography>
+						) : (
+							<MovieList movies={movies} onDelete={handleDeleteMovie} />
+						)}
 					</Grid>
 				</Box>
 			</Container>

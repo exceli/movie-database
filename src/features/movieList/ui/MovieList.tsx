@@ -1,7 +1,9 @@
+import DeleteIcon from '@mui/icons-material/Delete'
 import StarIcon from '@mui/icons-material/Star'
 import {
 	Avatar,
 	Box,
+	IconButton,
 	List,
 	ListItem,
 	ListItemAvatar,
@@ -13,9 +15,10 @@ import { Movie } from 'shared/types/types'
 
 interface MovieListProps {
 	movies: Movie[]
+	onDelete: (movieId: string) => void
 }
 
-export const MovieList: FC<MovieListProps> = ({ movies }) => {
+export const MovieList: FC<MovieListProps> = ({ movies, onDelete }) => {
 	return (
 		<List>
 			{movies.map(movie => (
@@ -47,6 +50,9 @@ export const MovieList: FC<MovieListProps> = ({ movies }) => {
 							</Box>
 						}
 					/>
+					<IconButton onClick={() => onDelete(movie.id)}>
+						<DeleteIcon />
+					</IconButton>
 				</ListItem>
 			))}
 		</List>

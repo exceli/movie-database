@@ -25,7 +25,11 @@ export const fetchPlaylistMovies = createAsyncThunk(
 const playlistSlice = createSlice({
     name: 'playlist',
     initialState,
-    reducers: {},
+    reducers: {
+        removeMovie: (state, action) => {
+            state.movies = state.movies.filter(movie => movie.id !== action.payload)
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchPlaylistMovies.pending, (state) => {
@@ -41,5 +45,7 @@ const playlistSlice = createSlice({
             })
     }
 })
+
+export const { removeMovie } = playlistSlice.actions
 
 export default playlistSlice.reducer

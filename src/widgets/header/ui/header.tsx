@@ -13,7 +13,6 @@ import { getAuth, signOut } from 'firebase/auth'
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { colors } from 'shared/ui/colors/colors'
 
 export const Header: FC = () => {
 	const dispatch = useDispatch()
@@ -36,7 +35,7 @@ export const Header: FC = () => {
 	}
 
 	return (
-		<AppBar position="static" sx={{ backgroundColor: colors.backgroundLight }}>
+		<AppBar position="static">
 			<Container maxWidth="lg">
 				<Toolbar>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

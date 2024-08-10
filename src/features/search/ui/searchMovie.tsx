@@ -4,7 +4,6 @@ import { useSearchMovies } from 'entities/movie/hooks/useSearchMovie'
 import { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDebounce } from 'shared/hooks/useDebounce'
-import { colors } from 'shared/ui/colors/colors'
 import { SearchButton } from 'shared/ui/searchButton'
 import { SearchInput } from 'shared/ui/searchInput'
 import { ResultsDropdown } from './resultsDropdown'
@@ -43,17 +42,6 @@ export const SearchMovie: FC = () => {
 						onChange={handleInputChange}
 						label="Search Movie"
 						type="search"
-						sx={{
-							color: colors.textPrimary,
-							backgroundColor: colors.inputBackground,
-							borderRadius: '10px',
-							'& .MuiInputBase-input::placeholder': {
-								color: colors.textPrimary,
-							},
-							'& .MuiInputLabel-root': {
-								color: colors.textPrimary,
-							},
-						}}
 						endAdornment={
 							<SearchButton
 								color="primary"

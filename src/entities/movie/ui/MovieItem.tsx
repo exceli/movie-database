@@ -30,7 +30,7 @@ const getOptimizedImageUrl = (url: string, width: number, quality: number) => {
 
 export const MovieItem: React.FC<MovieItemProps> = ({
 	movie,
-	isLoading,
+	// isLoading,
 	error,
 	// addedMovie,
 	onItemClick,
