@@ -38,12 +38,17 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 		if (user && user.id) {
 			setAddingMovieId(movie.id)
 			try {
-				const updatedMovie = await addMovieToPlaylist(user.id, movie)
+				const updatedMovie = await addMovieToPlaylist(user.id, {
+					...movie,
+					isPlaylist: true,
+				})
 
 				dispatch(
 					setSearchMovies(
-						movies.map(m =>
-							m.id === updatedMovie.id ? { ...m, isPlaylist: true } : m
+						movies.map(movie =>
+							movie.id === updatedMovie.id
+								? { ...movie, isPlaylist: true }
+								: movie
 						)
 					)
 				)

@@ -39,13 +39,15 @@ export const MovieItem: React.FC<MovieItemProps> = ({
 	const user = useAuth()
 	const isAddingCurrentMovie = addingMovieId === movie.id
 
-	console.log(user)
-
 	return (
 		<ListItem key={movie.id}>
 			<ListItemAvatar>
 				<Avatar
-					src={getOptimizedImageUrl(movie?.poster?.previewUrl, 56, 80)}
+					src={getOptimizedImageUrl(
+						movie?.poster?.previewUrl,
+						56,
+						80
+					)}
 					alt={movie?.name}
 					sx={{ width: 56, height: 56, mr: 2 }}
 				/>

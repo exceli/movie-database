@@ -1,14 +1,13 @@
-import { addDoc, collection, getDocs } from "firebase/firestore"
+import { collection, doc, getDocs, setDoc } from "firebase/firestore"
 import { db } from 'shared/config/firebase'
 import { Movie } from 'shared/types/types'
 
+
 export const addToPlaylist = async (userId: string, movie: Movie): Promise<Movie> => {
     try {
-        if (!userId || !movie || !movie.id || !movie.name) {
-            throw new Error('Invalid data')
-        }
+        const movieIdString = String(movie.id)
 
-        await addDoc(collection(db, 'playlists', userId, 'movies'), movie)
+        await setDoc(doc(db, 'playlists', userId, 'movies', movieIdString), movie)
 
         return { ...movie, isPlaylist: true }
     } catch (e) {

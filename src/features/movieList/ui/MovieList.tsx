@@ -11,6 +11,7 @@ import {
 	Typography,
 } from '@mui/material'
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Movie } from 'shared/types/types'
 
 interface MovieListProps {
@@ -19,10 +20,21 @@ interface MovieListProps {
 }
 
 export const MovieList: FC<MovieListProps> = ({ movies, onDelete }) => {
+	const navigate = useNavigate()
+
+	const handleMovieClick = (movieId: string) => {
+		navigate(`/movie/${movieId}`)
+	}
+
 	return (
 		<List>
 			{movies.map(movie => (
-				<ListItem key={movie.id} alignItems="flex-start">
+				<ListItem
+					key={movie.id}
+					alignItems="flex-start"
+					button
+					onClick={() => handleMovieClick(movie.id)}
+				>
 					<ListItemAvatar>
 						<Avatar
 							variant="square"
@@ -43,14 +55,22 @@ export const MovieList: FC<MovieListProps> = ({ movies, onDelete }) => {
 								</Typography>
 								<Box display="flex" alignItems="center">
 									<StarIcon style={{ color: 'gold' }} />
-									<Typography variant="body2" color="textSecondary">
+									<Typography
+										variant="body2"
+										color="textSecondary"
+									>
 										{movie.rating.imdb}
 									</Typography>
 								</Box>
 							</Box>
 						}
 					/>
-					<IconButton onClick={() => onDelete(movie.id)}>
+					<IconButton
+						onClick={e => {
+							e.stopPropagation()
+							onDelete(movie.id.toString())
+						}}
+					>
 						<DeleteIcon />
 					</IconButton>
 				</ListItem>

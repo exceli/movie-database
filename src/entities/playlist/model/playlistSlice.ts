@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getPlaylistMovies as fetchPlaylistMoviesFromAPI } from 'shared/api/firebase'
 import { Movie } from 'shared/types/types'
+import { removeFromPlaylist } from './api'
 
 interface PlaylistState {
     movies: Movie[]
@@ -22,14 +23,18 @@ export const fetchPlaylistMovies = createAsyncThunk(
     }
 )
 
+export const deleteMovieFromPlaylist = createAsyncThunk(
+    'playlist/deleteMovieFromPlaylist',
+    async ({ userId, movieId }: { userId: string; movieId: string }) => {
+        await removeFromPlaylist(userId, movieId)
+        return movieId
+    }
+)
+
 const playlistSlice = createSlice({
     name: 'playlist',
     initialState,
-    reducers: {
-        removeMovie: (state, action) => {
-            state.movies = state.movies.filter(movie => movie.id !== action.payload)
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchPlaylistMovies.pending, (state) => {
@@ -43,9 +48,20 @@ const playlistSlice = createSlice({
                 state.status = 'failed'
                 state.error = action.error.message
             })
+            .addCase(deleteMovieFromPlaylist.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(deleteMovieFromPlaylist.fulfilled, (state, action) => {
+                state.status = 'succeeded'
+                state.movies = state.movies.filter(
+                    (movie) => movie.id.toString() !== action.payload
+                )
+            })
+            .addCase(deleteMovieFromPlaylist.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
+            })
     }
 })
-
-export const { removeMovie } = playlistSlice.actions
 
 export default playlistSlice.reducer

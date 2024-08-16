@@ -10,6 +10,7 @@ export interface Movie {
     isPlaylist?: boolean
     poster?: {
         previewUrl: string
+        url: string
     }
     rating: {
         imdb: number

@@ -1,6 +1,9 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
 import { AppDispatch, RootState } from 'app/store'
-import { fetchPlaylistMovies } from 'entities/playlist/model/playlistSlice'
+import {
+	deleteMovieFromPlaylist,
+	fetchPlaylistMovies,
+} from 'entities/playlist/model/playlistSlice'
 import { useAuth } from 'entities/user/hook/useAuth'
 import { MovieList } from 'features/movieList/ui/MovieList'
 import { FC, useEffect } from 'react'
@@ -20,8 +23,8 @@ export const ProfilePage: FC = () => {
 		}
 	}, [user, dispatch])
 
-	const handleDeleteMovie = (movieId: string) => {
-		console.log(movieId)
+	const handleDeleteMovie = async (movieId: string) => {
+		await dispatch(deleteMovieFromPlaylist({ userId: user.id, movieId }))
 	}
 
 	return (
@@ -50,7 +53,10 @@ export const ProfilePage: FC = () => {
 						) : status === 'failed' ? (
 							<Typography color="error">{error}</Typography>
 						) : (
-							<MovieList movies={movies} onDelete={handleDeleteMovie} />
+							<MovieList
+								movies={movies}
+								onDelete={handleDeleteMovie}
+							/>
 						)}
 					</Grid>
 				</Box>
