@@ -1,12 +1,13 @@
 import { App } from 'app/app'
-import React from 'react'
+import 'normalize.css'
 import { createRoot } from 'react-dom/client'
+import 'shared/config/firebase'
 
 const container = document.querySelector('#root') as HTMLElement
 const root = createRoot(container)
 
 root.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
+	// <React.StrictMode>
+	<App />
+	// </React.StrictMode>
 )
