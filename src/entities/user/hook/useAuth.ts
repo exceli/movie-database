@@ -1,5 +1,5 @@
+import { fetchUser } from '@/entities/user/model/userSlice'
 import { AppDispatch, RootState } from 'app/store'
-import { fetchUser } from 'entities/user/model/slice/userSlice'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 

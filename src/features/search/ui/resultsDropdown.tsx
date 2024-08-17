@@ -1,13 +1,13 @@
+import { MovieItem } from '@/entities/movie/ui/MovieItem'
+import { setSearchMovies } from '@/entities/search/model/searchSlice'
+import { useAuth } from '@/entities/user/hook/useAuth'
+import { addToPlaylist } from '@/shared/api/firebase'
+import { useRequest } from '@/shared/hooks/useRequest'
+import { Movie } from '@/shared/types/types'
+import { Loading } from '@/shared/ui/loading'
 import { List, Paper, Typography } from '@mui/material'
-import { MovieItem } from 'entities/movie/ui/MovieItem'
-import { setSearchMovies } from 'entities/search/model/searchSlice'
-import { useAuth } from 'entities/user/hook/useAuth'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addToPlaylist } from 'shared/api/firebase'
-import { useRequest } from 'shared/hooks/useRequest'
-import { Movie } from 'shared/types/types'
-import { Loading } from 'shared/ui/loading'
 
 interface ResultsDropdownProps {
 	movies: Movie[]

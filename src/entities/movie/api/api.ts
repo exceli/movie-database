@@ -1,7 +1,7 @@
+import api from '@/shared/api/axiosConfig'
+import { db } from '@/shared/config/firebase'
+import { Movie } from '@/shared/types/types'
 import { doc, getDoc } from 'firebase/firestore'
-import api from 'shared/api/axiosConfig'
-import { db } from 'shared/config/firebase'
-import { Movie } from 'shared/types/types'
 
 export const getMovieDetails = async (movieId: string, userId: string): Promise<Movie> => {
     try {

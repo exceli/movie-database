@@ -1,7 +1,6 @@
+import { db } from '@/shared/config/firebase'
 import { collection, doc, getDocs, setDoc } from "firebase/firestore"
-import { db } from 'shared/config/firebase'
-import { Movie } from 'shared/types/types'
-
+import { Movie } from '../types/types'
 
 export const addToPlaylist = async (userId: string, movie: Movie): Promise<Movie> => {
     try {

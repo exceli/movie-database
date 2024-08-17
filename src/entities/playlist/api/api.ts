@@ -1,5 +1,5 @@
+import { db } from '@/shared/config/firebase'
 import { deleteDoc, doc } from 'firebase/firestore'
-import { db } from 'shared/config/firebase'
 
 export const removeFromPlaylist = async (userId: string, movieId: string): Promise<void> => {
     try {

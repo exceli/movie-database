@@ -1,3 +1,4 @@
+import { removeUser } from '@/entities/user/model/userSlice'
 import {
 	AppBar,
 	Box,
@@ -8,7 +9,6 @@ import {
 	Typography,
 } from '@mui/material'
 import { RootState } from 'app/store'
-import { removeUser } from 'entities/user/model/slice/userSlice'
 import { getAuth, signOut } from 'firebase/auth'
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -38,8 +38,15 @@ export const Header: FC = () => {
 		<AppBar position="static">
 			<Container maxWidth="lg">
 				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						<Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+					<Typography
+						variant="h6"
+						component="div"
+						sx={{ flexGrow: 1 }}
+					>
+						<Link
+							to="/"
+							style={{ textDecoration: 'none', color: 'inherit' }}
+						>
 							LOGO
 						</Link>
 					</Typography>

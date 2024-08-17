@@ -1,14 +1,14 @@
-import { Box, Container, Grid, Typography } from '@mui/material'
-import { AppDispatch, RootState } from 'app/store'
+import { AppDispatch, RootState } from '@/app/store'
 import {
 	deleteMovieFromPlaylist,
 	fetchPlaylistMovies,
-} from 'entities/playlist/model/playlistSlice'
-import { useAuth } from 'entities/user/hook/useAuth'
-import { MovieList } from 'features/movieList/ui/MovieList'
+} from '@/entities/playlist/model/playlistSlice'
+import { useAuth } from '@/entities/user/hook/useAuth'
+import { MovieList } from '@/features/movie'
+import { Loading } from '@/shared/ui/loading'
+import { Box, Container, Grid, Typography } from '@mui/material'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Loading } from 'shared/ui/loading'
 
 export const ProfilePage: FC = () => {
 	const dispatch = useDispatch<AppDispatch>()

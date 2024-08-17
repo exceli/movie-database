@@ -1,3 +1,4 @@
+import { Movie } from '@/shared/types/types'
 import DeleteIcon from '@mui/icons-material/Delete'
 import StarIcon from '@mui/icons-material/Star'
 import {
@@ -12,7 +13,6 @@ import {
 } from '@mui/material'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Movie } from 'shared/types/types'
 
 interface MovieListProps {
 	movies: Movie[]

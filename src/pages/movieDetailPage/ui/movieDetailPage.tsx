@@ -1,12 +1,12 @@
+import { getMovieDetails } from '@/entities/movie/api/api'
+import { useAuth } from '@/entities/user/hook/useAuth'
+import { Movie } from '@/shared/types/types'
 import StarIcon from '@mui/icons-material/Star'
 import { Avatar, Box, Typography } from '@mui/material'
-import { getMovieDetails } from 'entities/movie/api/api'
-import { useAuth } from 'entities/user/hook/useAuth'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Movie } from 'shared/types/types'
 
-export const MovieDetailPage = () => {
+export const MovieDetailPage: FC = () => {
 	const { movieId } = useParams()
 	const user = useAuth()
 	const [movie, setMovie] = useState<Movie>(null)

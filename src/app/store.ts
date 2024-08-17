@@ -1,7 +1,7 @@
+import playlistReducer from '@/entities/playlist/model/playlistSlice'
+import searchReducer from '@/entities/search/model/searchSlice'
+import userReducer from '@/entities/user/model/userSlice'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import playlistReducer from 'entities/playlist/model/playlistSlice'
-import searchReducer from 'entities/search/model/searchSlice'
-import userReducer from 'entities/user/model/slice/userSlice'
 
 const rootReducer = combineReducers({
     search: searchReducer,

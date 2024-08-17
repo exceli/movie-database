@@ -1,11 +1,11 @@
+import { RootState } from '@/app/store'
+import { useSearchMovies } from '@/features/movie/hooks/useSearchMovie'
+import { useDebounce } from '@/shared/hooks/useDebounce'
+import { SearchButton } from '@/shared/ui/searchButton'
+import { SearchInput } from '@/shared/ui/searchInput'
 import { Box, Grid } from '@mui/material'
-import { RootState } from 'app/store'
-import { useSearchMovies } from 'entities/movie/hooks/useSearchMovie'
 import { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useDebounce } from 'shared/hooks/useDebounce'
-import { SearchButton } from 'shared/ui/searchButton'
-import { SearchInput } from 'shared/ui/searchInput'
 import { ResultsDropdown } from './resultsDropdown'
 
 export const SearchMovie: FC = () => {

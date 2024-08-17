@@ -1,8 +1,8 @@
-import { store } from 'app/store'
+import { store } from '@/app/store'
+import { Fallback } from '@/shared/ui/fallback'
 import { FC } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Provider } from 'react-redux'
-import { Fallback } from 'shared/ui/fallback'
 
 interface IProviders {
 	readonly children: JSX.Element
