@@ -1,4 +1,4 @@
-import { SearchMovie } from '@/features/search'
+import { SearchMovie } from '@/features/searchMovie'
 import { Box, Grid } from '@mui/material'
 
 export const HomePage = () => {
