@@ -12,7 +12,8 @@ import {
 	ListItemText,
 	Typography,
 } from '@mui/material'
-import React from 'react'
+import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface MovieItemProps {
 	movie: Movie
@@ -27,18 +28,26 @@ const getOptimizedImageUrl = (url: string, width: number, quality: number) => {
 	return `${url}?tr=w-${width},q-${quality}`
 }
 
-export const MovieItem: React.FC<MovieItemProps> = ({
+export const MovieItem: FC<MovieItemProps> = ({
 	movie,
 	error,
 	onItemClick,
 	addingMovieId,
 }) => {
+	const navigate = useNavigate()
 	const user = useAuth()
 	const isAddingCurrentMovie = addingMovieId === movie.id
 
+	const handleMovieClick = (movieId: string) => {
+		navigate(`/movie/${movieId}`)
+	}
+
 	return (
 		<ListItem key={movie.id}>
-			<ListItemAvatar>
+			<ListItemAvatar
+				onClick={() => handleMovieClick(movie.id)}
+				sx={{ cursor: 'pointer' }}
+			>
 				<Avatar
 					src={getOptimizedImageUrl(
 						movie?.poster?.previewUrl,
@@ -50,6 +59,8 @@ export const MovieItem: React.FC<MovieItemProps> = ({
 				/>
 			</ListItemAvatar>
 			<ListItemText
+				onClick={() => handleMovieClick(movie.id)}
+				sx={{ cursor: 'pointer' }}
 				primary={movie.name}
 				secondary={
 					<Box component="span">
