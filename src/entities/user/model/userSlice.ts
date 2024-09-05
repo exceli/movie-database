@@ -17,23 +17,21 @@ const initialState: UserState = {
     error: null,
 }
 
-export const fetchUser = createAsyncThunk<
-    { id: string; email: string; token: string },
-    void
->('user/fetchUser', async () => {
-    const auth = getAuth()
+export const fetchUser = createAsyncThunk<{ id: string; email: string; token: string }, void>(
+    'user/fetchUser', async () => {
+        const auth = getAuth()
 
-    return new Promise<{ id: string; email: string; token: string }>((resolve, reject) => {
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const token = await user.getIdToken()
-                resolve({ id: user.uid, email: user.email!, token })
-            } else {
-                reject('No user signed in')
-            }
+        return new Promise<{ id: string; email: string; token: string }>((resolve, reject) => {
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const token = await user.getIdToken()
+                    resolve({ id: user.uid, email: user.email!, token })
+                } else {
+                    reject('No user signed in')
+                }
+            })
         })
     })
-})
 
 const userSlice = createSlice({
     name: 'user',

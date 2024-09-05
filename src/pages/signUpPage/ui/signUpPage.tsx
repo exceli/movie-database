@@ -1,12 +1,12 @@
+import { setUser } from '@/entities/user/model/userSlice'
+import { Button } from '@/shared/ui/button'
+import { Form } from '@/shared/ui/form'
+import { Input } from '@/shared/ui/input'
 import { Box, Container, Typography } from '@mui/material'
-import { setUser } from 'entities/user/model/slice/userSlice'
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button } from 'shared/ui/button'
-import { Form } from 'shared/ui/form'
-import { Input } from 'shared/ui/input'
 
 export const SignUpPage: FC = () => {
 	const dispatch = useDispatch()

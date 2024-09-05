@@ -1,3 +1,8 @@
+import { useAuth } from '@/entities/user/hook/useAuth' // TODO fix this
+import { Movie } from '@/shared/types/types'
+import { Button } from '@/shared/ui/button'
+import { Loading } from '@/shared/ui/loading'
+import { Rating } from '@/shared/ui/rating'
 import CheckIcon from '@mui/icons-material/Check'
 import {
 	Avatar,
@@ -7,13 +12,7 @@ import {
 	ListItemText,
 	Typography,
 } from '@mui/material'
-import { useAuth } from 'entities/user/hook/useAuth'
-
 import React from 'react'
-import { Movie } from 'shared/types/types'
-import { Button } from 'shared/ui/button'
-import { Loading } from 'shared/ui/loading'
-import { Rating } from 'shared/ui/rating'
 
 interface MovieItemProps {
 	movie: Movie
@@ -30,9 +29,7 @@ const getOptimizedImageUrl = (url: string, width: number, quality: number) => {
 
 export const MovieItem: React.FC<MovieItemProps> = ({
 	movie,
-	// isLoading,
 	error,
-	// addedMovie,
 	onItemClick,
 	addingMovieId,
 }) => {

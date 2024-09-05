@@ -1,5 +1,5 @@
+import { Movie } from '@/shared/types/types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Movie } from 'shared/types/types'
 
 export interface SearchState {
     movies: Movie[] | null

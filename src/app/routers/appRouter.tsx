@@ -1,11 +1,11 @@
-import { HomePage } from 'pages/homePage'
-import { LoginPage } from 'pages/loginPage'
-import { MovieDetailPage } from 'pages/movieDetailPage'
-import { ProfilePage } from 'pages/profilePage'
-import { SignUpPage } from 'pages/signUpPage'
+import { HomePage } from '@/pages/homePage'
+import { LoginPage } from '@/pages/loginPage'
+import { MovieDetailPage } from '@/pages/movieDetailPage'
+import { ProfilePage } from '@/pages/profilePage'
+import { SignUpPage } from '@/pages/signUpPage'
+import { Header } from '@/widgets/header'
 import { FC } from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-import { Header } from 'widgets/header'
 
 export const AppRouter: FC = () => {
 	return (

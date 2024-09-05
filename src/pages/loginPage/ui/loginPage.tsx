@@ -1,12 +1,12 @@
+import { setUser } from '@/entities/user/model/userSlice'
+import { Button } from '@/shared/ui/button'
+import { Form } from '@/shared/ui/form'
+import { Input } from '@/shared/ui/input'
 import { Box, Container, Typography } from '@mui/material'
-import { setUser } from 'entities/user/model/slice/userSlice'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button } from 'shared/ui/button'
-import { Form } from 'shared/ui/form'
-import { Input } from 'shared/ui/input'
 
 export const LoginPage: FC = () => {
 	const dispatch = useDispatch()
@@ -19,7 +19,11 @@ export const LoginPage: FC = () => {
 		const auth = getAuth()
 
 		try {
-			const { user } = await signInWithEmailAndPassword(auth, email, password)
+			const { user } = await signInWithEmailAndPassword(
+				auth,
+				email,
+				password
+			)
 			const token = await user.getIdToken()
 
 			dispatch(
