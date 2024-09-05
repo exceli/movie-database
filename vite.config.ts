@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
     plugins: [react()],
+    base: 'movie-database',
     resolve: {
         alias: {
             '@/app': path.resolve(__dirname, './src/app'),
