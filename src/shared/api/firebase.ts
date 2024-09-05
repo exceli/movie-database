@@ -1,5 +1,5 @@
 import { db } from '@/shared/config/firebase'
-import { collection, doc, getDocs, setDoc } from "firebase/firestore"
+import { doc, setDoc } from "firebase/firestore"
 import { Movie } from '../types/types'
 
 export const addToPlaylist = async (userId: string, movie: Movie): Promise<Movie> => {
@@ -15,15 +15,3 @@ export const addToPlaylist = async (userId: string, movie: Movie): Promise<Movie
     }
 }
 
-export const getPlaylistMovies = async (userId: string): Promise<Movie[]> => {
-    const movies: Movie[] = []
-    try {
-        const querySnapshot = await getDocs(collection(db, 'playlists', userId, 'movies'))
-        querySnapshot.forEach((doc) => {
-            movies.push(doc.data() as Movie)
-        })
-    } catch (e) {
-        console.error('Error fetching playlist movies: ', e)
-    }
-    return movies
-}

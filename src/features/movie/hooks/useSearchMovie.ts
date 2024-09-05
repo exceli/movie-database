@@ -1,7 +1,7 @@
+import { getPlaylistMovies } from '@/entities/playlist/api/api'
 import { setSearchMovies } from '@/entities/search/model/searchSlice'
 import { useAuth } from '@/entities/user/hook/useAuth'
 import api from '@/shared/api/axiosConfig'
-import { getPlaylistMovies } from '@/shared/api/firebase'
 import { useRequest } from '@/shared/hooks/useRequest'
 import { Movie } from '@/shared/types/types'
 import { useDispatch } from 'react-redux'

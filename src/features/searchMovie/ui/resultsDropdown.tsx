@@ -1,4 +1,6 @@
+import { AppDispatch } from '@/app/store'
 import { MovieItem } from '@/entities/movie/ui/MovieItem'
+import { fetchPlaylistMovies } from '@/entities/playlist/model/playlistSlice'
 import { setSearchMovies } from '@/entities/search/model/searchSlice'
 import { useAuth } from '@/entities/user/hook/useAuth'
 import { addToPlaylist } from '@/shared/api/firebase'
@@ -20,7 +22,7 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 	isLoading,
 	error,
 }) => {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch<AppDispatch>()
 	const user = useAuth()
 	const [addingMovieId, setAddingMovieId] = useState<string | null>(null)
 
@@ -31,6 +33,7 @@ export const ResultsDropdown: React.FC<ResultsDropdownProps> = ({
 		data: addedMovie,
 	} = useRequest(async (userId: string, movie: Movie) => {
 		await addToPlaylist(userId, movie)
+		dispatch(fetchPlaylistMovies(user.id))
 		return movie
 	})
 

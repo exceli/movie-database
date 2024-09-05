@@ -1,4 +1,4 @@
-import { getPlaylistMovies as fetchPlaylistMoviesFromAPI } from '@/shared/api/firebase'
+import { getPlaylistMovies as fetchPlaylistMoviesFromAPI } from '@/entities/playlist/api/api'
 import { Movie } from '@/shared/types/types'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { removeFromPlaylist } from '../api/api'
@@ -34,7 +34,11 @@ export const deleteMovieFromPlaylist = createAsyncThunk(
 const playlistSlice = createSlice({
     name: 'playlist',
     initialState,
-    reducers: {},
+    reducers: {
+        setMovies: (state, action) => {
+            state.movies = action.payload
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchPlaylistMovies.pending, (state) => {
