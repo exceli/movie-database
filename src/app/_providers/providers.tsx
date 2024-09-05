@@ -12,8 +12,10 @@ interface IProviders {
 export const Providers: FC<IProviders> = ({ children }) => {
 	return (
 		<ErrorBoundary FallbackComponent={Fallback}>
-			<ModalProvider />
-			<Provider store={store}>{children}</Provider>
+			<Provider store={store}>
+				<ModalProvider />
+				{children}
+			</Provider>
 		</ErrorBoundary>
 	)
 }

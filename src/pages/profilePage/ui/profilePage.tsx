@@ -1,5 +1,6 @@
 import { AppDispatch } from '@/app/store'
 import { fetchPlaylistMovies } from '@/entities/playlist/model/playlistSlice'
+import { openModal } from '@/entities/search/model/modalSlice'
 import { useAuth } from '@/entities/user/hook/useAuth'
 import { Button } from '@/shared/ui/button'
 import { MovieList } from '@/widgets/movieList'
@@ -10,6 +11,10 @@ import { useDispatch } from 'react-redux'
 export const ProfilePage: FC = () => {
 	const dispatch = useDispatch<AppDispatch>()
 	const user = useAuth()
+
+	const handleOpenSearchModal = () => {
+		dispatch(openModal())
+	}
 
 	useEffect(() => {
 		if (user && user.id) {
@@ -31,7 +36,9 @@ export const ProfilePage: FC = () => {
 				}}
 			>
 				<Box display="flex" justifyContent="flex-end">
-					<Button>+ Add movie</Button>
+					<Button variant="contained" onClick={handleOpenSearchModal}>
+						+ Add movie
+					</Button>
 				</Box>
 				<Box mt={4} mb={4}>
 					<Typography variant="h4" component="h1" gutterBottom>

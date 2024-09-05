@@ -1,12 +1,18 @@
+import { RootState } from '@/app/store'
+import { closeModal } from '@/entities/search/model/modalSlice'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, IconButton, Modal, Typography } from '@mui/material'
-import { FC, useState } from 'react'
+import { FC } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { SearchMovie } from './searchMovie'
 
 export const SearchModal: FC = () => {
-	const [open, setOpen] = useState(false)
+	const dispatch = useDispatch()
+	const open = useSelector((state: RootState) => state.searchModal.isOpen)
 
-	const handleClose = () => setOpen(false)
+	const handleClose = () => {
+		dispatch(closeModal())
+	}
 
 	return (
 		<Modal
@@ -23,7 +29,6 @@ export const SearchModal: FC = () => {
 					transform: 'translate(-50%, -50%)',
 					width: 400,
 					bgcolor: 'background.paper',
-					border: '2px solid #000',
 					boxShadow: 24,
 					p: 4,
 					borderRadius: 2,
@@ -41,7 +46,7 @@ export const SearchModal: FC = () => {
 					>
 						Search Movies
 					</Typography>
-					<IconButton>
+					<IconButton onClick={handleClose}>
 						<CloseIcon />
 					</IconButton>
 				</Box>
