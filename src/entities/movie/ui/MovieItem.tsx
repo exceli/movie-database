@@ -1,4 +1,4 @@
-import { useAuth } from '@/entities/user/hook/useAuth' // TODO fix this
+import { useAuth } from '@/entities/user/hook/useAuth' // TODO fix this import
 import { Movie } from '@/shared/types/types'
 import { Button } from '@/shared/ui/button'
 import { Loading } from '@/shared/ui/loading'

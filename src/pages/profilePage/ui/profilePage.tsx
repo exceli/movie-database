@@ -23,18 +23,14 @@ export const ProfilePage: FC = () => {
 	}, [user, dispatch])
 
 	return (
-		<Box
+		<Container
+			maxWidth="md"
 			sx={{
-				minHeight: 'calc(100vh - 64px)',
+				padding: 4,
+				borderRadius: 2,
 			}}
 		>
-			<Container
-				maxWidth="lg"
-				sx={{
-					padding: 4,
-					borderRadius: 2,
-				}}
-			>
+			<Box sx={{ minHeight: 'calc(100vh - 64px)' }}>
 				<Box display="flex" justifyContent="flex-end">
 					<Button variant="contained" onClick={handleOpenSearchModal}>
 						+ Add movie
@@ -49,7 +45,7 @@ export const ProfilePage: FC = () => {
 					</Typography>
 					<MovieList />
 				</Box>
-			</Container>
-		</Box>
+			</Box>
+		</Container>
 	)
 }

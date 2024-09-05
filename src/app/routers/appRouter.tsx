@@ -5,11 +5,11 @@ import { ProfilePage } from '@/pages/profilePage'
 import { SignUpPage } from '@/pages/signUpPage'
 import { Header } from '@/widgets/header'
 import { FC } from 'react'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 export const AppRouter: FC = () => {
 	return (
-		<Router>
+		<>
 			<Header />
 			<Routes>
 				<Route path="/" element={<HomePage />} />
@@ -18,6 +18,6 @@ export const AppRouter: FC = () => {
 				<Route path="/profile/:user" element={<ProfilePage />} />
 				<Route path="/movie/:movieId" element={<MovieDetailPage />} />
 			</Routes>
-		</Router>
+		</>
 	)
 }
