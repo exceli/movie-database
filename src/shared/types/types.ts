@@ -4,6 +4,7 @@ export interface Movie {
     year: number
     posterUrl: string
     description: string
+    dateAdded?: string
     backdrop?: {
         url: string
     }

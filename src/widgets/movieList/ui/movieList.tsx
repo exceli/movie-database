@@ -1,11 +1,11 @@
-import { AppDispatch, RootState } from '@/app/store'
-import { deleteMovieFromPlaylist } from '@/entities/playlist/model/playlistSlice'
-import { useAuth } from '@/entities/user/hook/useAuth'
-import { MovieListItem } from '@/features/movie'
-import { Loading } from '@/shared/ui/loading'
-import { Grid, List, Typography } from '@mui/material'
-import { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from "@/app/store"
+import { deleteMovieFromPlaylist } from "@/entities/playlist/model/playlistSlice"
+import { useAuth } from "@/entities/user/hook/useAuth"
+import { MovieListItem } from "@/features/movie"
+import { Loading } from "@/shared/ui/loading"
+import { Grid, List, Typography } from "@mui/material"
+import { FC } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
 export const MovieList: FC = () => {
 	const dispatch = useDispatch<AppDispatch>()
@@ -19,15 +19,25 @@ export const MovieList: FC = () => {
 		await dispatch(deleteMovieFromPlaylist({ userId: user.id, movieId }))
 	}
 
+	const sortedMovies = [...movies].sort((a, b) => {
+		if (a.dateAdded && b.dateAdded) {
+			return (
+				new Date(b.dateAdded).getTime() -
+				new Date(a.dateAdded).getTime()
+			)
+		}
+		return 0
+	})
+
 	return (
 		<Grid container spacing={2}>
-			{status === 'loading' ? (
+			{status === "loading" ? (
 				<Loading />
-			) : status === 'failed' ? (
+			) : status === "failed" ? (
 				<Typography color="error">{error}</Typography>
 			) : (
 				<List>
-					{movies.map(movie => (
+					{sortedMovies.map(movie => (
 						<MovieListItem
 							key={movie.id}
 							movie={movie}
