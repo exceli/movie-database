@@ -22,6 +22,10 @@ export const ProfilePage: FC = () => {
 		}
 	}, [user, dispatch])
 
+	if (user.status === 'failed') {
+		return null
+	}
+
 	return (
 		<Container
 			maxWidth="md"

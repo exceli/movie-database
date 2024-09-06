@@ -1,4 +1,6 @@
 import { Movie } from '@/shared/types/types'
+import { Loading } from '@/shared/ui/loading'
+import CheckIcon from '@mui/icons-material/Check'
 import DeleteIcon from '@mui/icons-material/Delete'
 import StarIcon from '@mui/icons-material/Star'
 import {
@@ -16,13 +18,20 @@ import { useNavigate } from 'react-router-dom'
 interface MovieListItemProps {
 	movie: Movie
 	onDelete: (movieId: string) => void
+	isMarkMovieLoading: boolean
+	onMarkAsWatched: (movie: Movie) => void
 }
 
-export const MovieListItem: FC<MovieListItemProps> = ({ movie, onDelete }) => {
+export const MovieListItem: FC<MovieListItemProps> = ({
+	movie,
+	onDelete,
+	isMarkMovieLoading,
+	onMarkAsWatched,
+}) => {
 	const navigate = useNavigate()
 
-	const handleMovieClick = (movieId: string) => {
-		navigate(`/movie/${movieId}`)
+	const handleMovieClick = () => {
+		navigate(`/movie/${movie.id}`)
 	}
 
 	return (
@@ -30,9 +39,9 @@ export const MovieListItem: FC<MovieListItemProps> = ({ movie, onDelete }) => {
 			key={movie.id}
 			alignItems="flex-start"
 			button
-			onClick={() => handleMovieClick(movie.id)}
+			onClick={handleMovieClick}
 		>
-			<ListItemAvatar>
+			<ListItemAvatar sx={{ mr: 2 }}>
 				<Avatar
 					variant="square"
 					src={movie.poster.previewUrl}
@@ -59,6 +68,21 @@ export const MovieListItem: FC<MovieListItemProps> = ({ movie, onDelete }) => {
 					</Box>
 				}
 			/>
+			{isMarkMovieLoading ? (
+				<Loading />
+			) : (
+				<IconButton
+					onClick={e => {
+						e.stopPropagation()
+						onMarkAsWatched(movie)
+					}}
+					disabled={isMarkMovieLoading}
+				>
+					<CheckIcon
+						color={movie.isWatched ? 'primary' : 'inherit'}
+					/>
+				</IconButton>
+			)}
 			<IconButton
 				onClick={e => {
 					e.stopPropagation()

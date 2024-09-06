@@ -5,6 +5,7 @@ export interface Movie {
     posterUrl: string
     description: string
     dateAdded?: string
+    isWatched?: boolean
     backdrop?: {
         url: string
     }

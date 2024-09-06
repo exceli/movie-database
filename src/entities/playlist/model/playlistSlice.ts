@@ -1,7 +1,6 @@
-import { getPlaylistMovies as fetchPlaylistMoviesFromAPI } from '@/entities/playlist/api/api'
 import { Movie } from '@/shared/types/types'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { removeFromPlaylist } from '../api/api'
+import { getPlaylistMovies as fetchPlaylistMoviesFromAPI, removeFromPlaylist } from '../api/api'
 
 interface PlaylistState {
     movies: Movie[]
@@ -68,4 +67,5 @@ const playlistSlice = createSlice({
     }
 })
 
+export const { setMovies } = playlistSlice.actions
 export default playlistSlice.reducer
